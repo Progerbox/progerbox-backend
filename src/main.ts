@@ -1,19 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Config } from './modules/config/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const config = app.get<Config>(Config);
 
-  const config = new DocumentBuilder()
-    .setTitle('Progerbox API')
-    .setVersion('1.0')
-    // .addTag('cats')
-    .build();
+  app.setGlobalPrefix('/api');
 
-  const document = SwaggerModule.createDocument(app, config);
+  const swaggerConfig = new DocumentBuilder().setTitle('Progerbox API').setVersion('1.0').build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+
   SwaggerModule.setup('api-docs', app, document);
-
-  await app.listen(3000);
+  await app.listen(config.common.port);
 }
 bootstrap();
