@@ -16,6 +16,8 @@ export class Config {
   };
 
   constructor() {
+    // If you need to rewrite config by some conditions - do it here
+
     this.common = {
       port: +(process.env.PORT ?? 0),
     };

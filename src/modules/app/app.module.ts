@@ -3,6 +3,7 @@ import { ConfigModule } from '../config/config.module';
 import { UsersModule } from '../users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Config } from '../config/config';
+import { ExceptionsModule } from '../exceptions/exceptions.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { Config } from '../config/config';
       }),
     }),
     ConfigModule,
+    ExceptionsModule,
     UsersModule,
   ],
 })
