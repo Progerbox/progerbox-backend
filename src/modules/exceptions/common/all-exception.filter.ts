@@ -34,7 +34,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     let status = 400;
     const body: ResponseException = {
       type: '',
-      exception: null,
+      exception: {},
       url: request.url,
       params: request.params,
       query: request.query,
@@ -57,7 +57,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     } else {
       status = 500;
       body.type = 'UnknownException';
-      body.exception = null;
+      body.exception = {};
     }
 
     response.status(status).json(body);
