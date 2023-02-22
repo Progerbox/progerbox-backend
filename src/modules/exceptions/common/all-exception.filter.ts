@@ -1,6 +1,7 @@
 import { ArgumentsHost, ExceptionFilter, HttpException } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ValidationException } from './ValidationException';
+import { ValidationException } from '../exception-types/validation-exception';
+import { OperationException } from '../exception-types/operation-exception';
 
 interface ResponseException {
   type: string;
@@ -11,6 +12,10 @@ interface ResponseException {
   body: Record<any, any>;
   timestamp: number;
 }
+
+const isOperationException = (exception: any): exception is OperationException => {
+  return exception instanceof OperationException;
+};
 
 const isHttpException = (exception: any): exception is HttpException => {
   return exception instanceof HttpException;
@@ -37,9 +42,10 @@ export class AllExceptionFilter implements ExceptionFilter {
       timestamp: Date.now(),
     };
 
-    // TODO ApplicationException?
-
-    if (isValidationException(exception)) {
+    if (isOperationException(exception)) {
+      body.type = 'OperationException';
+      body.exception = exception;
+    } else if (isValidationException(exception)) {
       body.type = 'ValidationException';
       body.exception = exception;
     } else if (isHttpException(exception)) {
@@ -49,6 +55,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         message: exception.message,
       };
     } else {
+      status = 500;
       body.type = 'UnknownException';
       body.exception = null;
     }

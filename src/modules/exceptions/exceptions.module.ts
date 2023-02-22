@@ -1,5 +1,9 @@
 import { Module, Global } from '@nestjs/common';
+import { OperationExceptions } from './operation-exceptions';
 
 @Global()
-@Module({})
+@Module({
+  providers: [OperationExceptions],
+  exports: [OperationExceptions],
+})
 export class ExceptionsModule {}

@@ -2,11 +2,13 @@ import { IUsecase } from '../../../shared/usecase.interface';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { OperationExceptions } from '../../exceptions/operation-exceptions';
 
 export class GetUserByIdUsecase implements IUsecase {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly operationExceptions: OperationExceptions,
   ) {}
 
   async execute(id: number): Promise<User> {
@@ -17,8 +19,7 @@ export class GetUserByIdUsecase implements IUsecase {
     });
 
     if (!user) {
-      // TODO update with new exceptions logic
-      throw new Error('NOT_FOUND');
+      throw this.operationExceptions.users.notFound({ id });
     }
 
     return user;

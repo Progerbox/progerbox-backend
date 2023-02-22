@@ -1,5 +1,5 @@
 import { ValidationError } from '@nestjs/common';
-import { PropertyErrors, ValidationException } from './ValidationException';
+import { PropertyErrors, ValidationException } from '../exception-types/validation-exception';
 
 export const formatValidationException = (errors: ValidationError[]) => {
   const properties = errors.map((error) => ({
