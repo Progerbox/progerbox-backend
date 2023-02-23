@@ -1,15 +1,11 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { DiscoveryService, ModuleRef, Reflector } from '@nestjs/core';
+import { DiscoveryService, Reflector } from '@nestjs/core';
 
 @Injectable()
 export class UsecasesResolver implements OnModuleInit {
   private readonly usecasesMap: Map<any, any> = new Map();
 
-  constructor(
-    private readonly discoveryService: DiscoveryService,
-    private readonly reflector: Reflector,
-    private readonly moduleRef: ModuleRef,
-  ) {}
+  constructor(private readonly discoveryService: DiscoveryService, private readonly reflector: Reflector) {}
 
   public onModuleInit(): any {
     const allProviders = this.discoveryService.getProviders();
@@ -19,7 +15,7 @@ export class UsecasesResolver implements OnModuleInit {
       const isUsecase = this.reflector.get('isUsecase', instance.constructor);
 
       if (isUsecase) {
-        this.usecasesMap.set(instance.constructor, this.moduleRef.get(instance.constructor));
+        this.usecasesMap.set(instance.constructor, instance.constructor);
       }
     });
   }
