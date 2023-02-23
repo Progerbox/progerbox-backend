@@ -6,32 +6,32 @@ import { CreateUserUsecase } from './usecases/create-user.usecase';
 import { ApiTags } from '@nestjs/swagger';
 import { GetUserByIdUsecase } from './usecases/get-user-by-id.usecase';
 import { GetUsersUsecase } from './usecases/get-users.usecase';
+import { UsecasesResolver } from '../../libs/usecases-resolver';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(
-    private readonly createUserUsecase: CreateUserUsecase,
-    private readonly getUserByIdUsecase: GetUserByIdUsecase,
-    private readonly getUsersUsecase: GetUsersUsecase,
-  ) {}
+  constructor(private readonly usecasesResolver: UsecasesResolver) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
   public async createUser(@Body() createUserDto: CreateUserDto): Promise<UserResponse> {
-    const user = await this.createUserUsecase.execute(createUserDto);
+    const usecase = this.usecasesResolver.get<CreateUserUsecase>(CreateUserUsecase);
+    const user = await usecase.execute(createUserDto);
     return { user };
   }
 
   @Get()
   public async getUsers(): Promise<UsersResponse> {
-    const users = await this.getUsersUsecase.execute();
+    const usecase = this.usecasesResolver.get<GetUsersUsecase>(GetUsersUsecase);
+    const users = await usecase.execute();
     return { users };
   }
 
   @Get('/:id')
   public async getUserById(@Param('id') id: number): Promise<UserResponse> {
-    const user = await this.getUserByIdUsecase.execute(id);
+    const usecase = this.usecasesResolver.get<GetUserByIdUsecase>(GetUserByIdUsecase);
+    const user = await usecase.execute(id);
     return { user };
   }
 }

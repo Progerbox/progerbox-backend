@@ -1,9 +1,11 @@
-import { IUsecase } from '../../../shared/usecase.interface';
+import { IUsecase } from '../../../shared/usecase/usecase.interface';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OperationExceptions } from '../../exceptions/operation-exceptions';
+import { Usecase } from '../../../libs/usecases-resolver';
 
+@Usecase()
 export class GetUserByIdUsecase implements IUsecase {
   constructor(
     @InjectRepository(User)
