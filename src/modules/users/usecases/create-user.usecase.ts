@@ -1,4 +1,4 @@
-import { IUsecase } from '../../../shared/usecase/usecase.interface';
+import { IUsecase } from '../../../shared/usecase.interface';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
