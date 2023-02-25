@@ -3,7 +3,9 @@ import { User } from '../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Usecase } from '../../../libs/usecases-resolver';
 
+@Usecase()
 export class CreateUserUsecase implements IUsecase {
   constructor(
     @InjectRepository(User)
