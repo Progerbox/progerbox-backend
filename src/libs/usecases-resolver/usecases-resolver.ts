@@ -1,7 +1,7 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, Scope } from '@nestjs/common';
 import { DiscoveryService, Reflector } from '@nestjs/core';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class UsecasesResolver implements OnModuleInit {
   private readonly usecasesMap: Map<any, any> = new Map();
 

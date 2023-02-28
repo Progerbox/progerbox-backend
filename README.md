@@ -8,19 +8,13 @@
 ```bash
 # For develop purposes
 
-# Run project with watcher
-npm run start:dev
-
-# Run project with watcher and debugger
-npm run start:debug
+npm run start:dev # run with watcher
+npm run start:debug # run with watcher and debugger
 
 # For production purposes
 
-# Run project
-npm run start
-
-# Rebuild and run project
-npm run start:prod
+npm run start # run
+npm run start:prod # rebuild and run
 ```
 
 ## Migrations
@@ -28,7 +22,10 @@ All migrations are placed at `src/modules/database/migrations`.
 
 To work with migrations, use these commands (works for every OS):
 ```bash
-# Create migration with name SOME_NAME
+# Generate SOME_NAME migration with latest entities (schemas) changes 
+npm run migration:generate --name=SOME_NAME
+
+# Create empty SOME_NAME migration
 npm run migration:create --name=SOME_NAME
 
 # Run all pending migrations

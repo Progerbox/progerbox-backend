@@ -13,9 +13,7 @@ export class CreateUserUsecase implements IUsecase {
   ) {}
 
   async execute(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.usersRepository.create({
-      ...createUserDto,
-    });
+    const user = this.usersRepository.create(createUserDto);
     await this.usersRepository.save(user);
     return user;
   }
