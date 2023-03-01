@@ -12,7 +12,7 @@ export class CreateCategoryUsecase implements IUsecase {
 
   public async execute(createCategoryDto: CreateCategoryDto): Promise<Category> {
     const category = this.categoriesRepository.create(createCategoryDto);
-    await this.categoriesRepository.save(category);
+    await this.categoriesRepository.insert(category);
     return category;
   }
 }

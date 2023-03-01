@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Config } from '../config/config';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
 import { ResourcesModule } from '../resources/resources.module';
+import { CategoriesModule } from '../categories/categories.module';
 
 @Module({
   imports: [
@@ -18,12 +19,13 @@ import { ResourcesModule } from '../resources/resources.module';
         username: config.database.username,
         password: config.database.password,
         database: config.database.database,
-        autoLoadEntities: true,
+        entities: [__dirname + '../../**/*.entity.ts'],
       }),
     }),
     ConfigModule,
     ExceptionsModule,
     UsersModule,
+    CategoriesModule,
     ResourcesModule,
   ],
 })

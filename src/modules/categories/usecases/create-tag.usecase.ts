@@ -12,7 +12,7 @@ export class CreateTagUsecase implements IUsecase {
 
   public async execute(createTagDto: CreateTagDto): Promise<Tag> {
     const tag = this.tagsRepository.create(createTagDto);
-    await this.tagsRepository.save(tag);
+    await this.tagsRepository.insert(tag);
     return tag;
   }
 }
