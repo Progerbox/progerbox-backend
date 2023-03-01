@@ -8,9 +8,10 @@ import { Tag } from './entities/tag.entity';
 import { CreateCategoryUsecase } from './usecases/create-category.usecase';
 import { GetCategoriesUsecase } from './usecases/get-categories.usecase';
 import { CreateTagUsecase } from './usecases/create-tag.usecase';
+import { Resource } from '../resources/entities/resource.entity';
 
 @Module({
-  imports: [DiscoveryModule, TypeOrmModule.forFeature([Category, Tag])],
+  imports: [DiscoveryModule, TypeOrmModule.forFeature([Category, Tag, Resource])],
   providers: [CreateCategoryUsecase, GetCategoriesUsecase, CreateTagUsecase, UsecasesResolver],
   controllers: [CategoriesController],
 })

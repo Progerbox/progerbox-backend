@@ -15,7 +15,7 @@ export class UsecasesResolver implements OnModuleInit {
       const isUsecase = this.reflector.get('isUsecase', instance.constructor);
 
       if (isUsecase) {
-        this.usecasesMap.set(instance.constructor, instance.constructor);
+        this.usecasesMap.set(instance.constructor, instance);
       }
     });
   }

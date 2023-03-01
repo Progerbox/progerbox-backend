@@ -19,7 +19,7 @@ import { CategoriesModule } from '../categories/categories.module';
         username: config.database.username,
         password: config.database.password,
         database: config.database.database,
-        entities: [__dirname + '../../**/*.entity.ts'],
+        autoLoadEntities: true,
       }),
     }),
     ConfigModule,
