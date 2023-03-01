@@ -12,8 +12,8 @@ export class CreateUserUsecase implements IUsecase {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async execute(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.usersRepository.create(createUserDto);
+  async execute(fields: CreateUserDto): Promise<User> {
+    const user = this.usersRepository.create(fields);
     await this.usersRepository.insert(user);
     return user;
   }

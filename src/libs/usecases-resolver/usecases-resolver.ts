@@ -7,7 +7,7 @@ export class UsecasesResolver implements OnModuleInit {
 
   constructor(private readonly discoveryService: DiscoveryService, private readonly reflector: Reflector) {}
 
-  public onModuleInit(): any {
+  public onModuleInit(): void {
     const allProviders = this.discoveryService.getProviders();
     allProviders.forEach((provider) => {
       const { instance } = provider;
