@@ -4,6 +4,12 @@ import { Repository } from 'typeorm';
 import { Category } from '../entities/category.entity';
 import { Usecase } from '../../../libs/usecases-resolver';
 
+interface CategoryItem {
+  id: number;
+  name: string;
+  type: string;
+}
+
 @Usecase()
 export class GetCategoriesUsecase implements IUsecase {
   constructor(
@@ -11,7 +17,12 @@ export class GetCategoriesUsecase implements IUsecase {
     private readonly categoriesRepository: Repository<Category>,
   ) {}
 
-  public async execute(): Promise<Category[]> {
-    return this.categoriesRepository.find();
+  public async execute(): Promise<CategoryItem[]> {
+    const categories = await this.categoriesRepository.find();
+    return categories.map((category) => ({
+      id: category.id,
+      name: category.name,
+      type: category.type,
+    }));
   }
 }

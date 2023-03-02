@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Param, Patch, Post, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
 import { UsecasesResolver } from '../../libs/usecases-resolver';
@@ -13,6 +13,7 @@ import { GetResourcesUsecase } from './usecases/get-resources.usecase';
 export class ResourcesController {
   constructor(private readonly usecasesResolver: UsecasesResolver) {}
 
+  @ApiOperation({ summary: 'Admin only. Create resource' })
   @HttpCode(201)
   @Post()
   public async createResource(@Body() fields: CreateResourceDto): Promise<any> {
@@ -21,6 +22,7 @@ export class ResourcesController {
     return { resource };
   }
 
+  @ApiOperation({ summary: 'Get resources with tags and categories' })
   @Get()
   public async getResources(@Query() query: GetResourcesQueryDto): Promise<any> {
     const usecase = this.usecasesResolver.get<GetResourcesUsecase>(GetResourcesUsecase);
@@ -28,6 +30,7 @@ export class ResourcesController {
     return { result };
   }
 
+  @ApiOperation({ summary: 'Admin only. Update resource' })
   @Patch('/:id')
   public async updateResource(@Param('id') id: number, @Body() fields: UpdateResourceDto): Promise<any> {
     const usecase = this.usecasesResolver.get<UpdateResourceUsecase>(UpdateResourceUsecase);

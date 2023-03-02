@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UsecasesResolver } from '../../libs/usecases-resolver';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { CreateCategoryUsecase } from './usecases/create-category.usecase';
@@ -12,6 +12,7 @@ import { CreateTagUsecase } from './usecases/create-tag.usecase';
 export class CategoriesController {
   constructor(private readonly usecasesResolver: UsecasesResolver) {}
 
+  @ApiOperation({ summary: 'Admin only. Create category' })
   @HttpCode(201)
   @Post()
   public async createCategory(@Body() fields: CreateCategoryDto): Promise<any> {
@@ -20,6 +21,7 @@ export class CategoriesController {
     return { category };
   }
 
+  @ApiOperation({ summary: 'Get categories' })
   @Get()
   public async getCategories(): Promise<any> {
     const usecase = this.usecasesResolver.get<GetCategoriesUsecase>(GetCategoriesUsecase);
@@ -27,6 +29,7 @@ export class CategoriesController {
     return { categories };
   }
 
+  @ApiOperation({ summary: 'Admin only. Create tag' })
   @HttpCode(201)
   @Post('/tags')
   public async createTag(@Body() fields: CreateTagDto): Promise<any> {
