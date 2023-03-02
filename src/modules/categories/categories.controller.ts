@@ -14,14 +14,14 @@ export class CategoriesController {
 
   @HttpCode(201)
   @Post()
-  public async createCategory(@Body() fields: CreateCategoryDto) {
+  public async createCategory(@Body() fields: CreateCategoryDto): Promise<any> {
     const usecase = this.usecasesResolver.get<CreateCategoryUsecase>(CreateCategoryUsecase);
     const category = await usecase.execute(fields);
     return { category };
   }
 
   @Get()
-  public async getCategories() {
+  public async getCategories(): Promise<any> {
     const usecase = this.usecasesResolver.get<GetCategoriesUsecase>(GetCategoriesUsecase);
     const categories = await usecase.execute();
     return { categories };
@@ -29,7 +29,7 @@ export class CategoriesController {
 
   @HttpCode(201)
   @Post('/tags')
-  public async createTag(@Body() fields: CreateTagDto) {
+  public async createTag(@Body() fields: CreateTagDto): Promise<any> {
     const usecase = this.usecasesResolver.get<CreateTagUsecase>(CreateTagUsecase);
     const tag = await usecase.execute(fields);
     return { tag };

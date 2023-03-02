@@ -22,10 +22,10 @@ export class UpdateResourceUsecase implements IUsecase {
     const tags = await this.tagsRepository.findBy(tagsWhere);
 
     const resource = await this.resourcesRepository.findOne({
-      where: { id },
       relations: {
         tags: true,
       },
+      where: { id },
     });
 
     if (!resource) {

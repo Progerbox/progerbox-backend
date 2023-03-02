@@ -13,21 +13,21 @@ export class UsersController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  public async createUser(@Body() fields: CreateUserDto) {
+  public async createUser(@Body() fields: CreateUserDto): Promise<any> {
     const usecase = this.usecasesResolver.get<CreateUserUsecase>(CreateUserUsecase);
     const user = await usecase.execute(fields);
     return { user };
   }
 
   @Get()
-  public async getUsers() {
+  public async getUsers(): Promise<any> {
     const usecase = this.usecasesResolver.get<GetUsersUsecase>(GetUsersUsecase);
     const users = await usecase.execute();
     return { users };
   }
 
   @Get('/:id')
-  public async getUserById(@Param('id') id: number) {
+  public async getUserById(@Param('id') id: number): Promise<any> {
     const usecase = this.usecasesResolver.get<GetUserByIdUsecase>(GetUserByIdUsecase);
     const user = await usecase.execute(id);
     return { user };
