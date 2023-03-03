@@ -57,7 +57,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     } else {
       status = 500;
       body.type = 'UnknownException';
-      body.exception = {};
+      body.exception = exception;
     }
 
     response.status(status).json(body);

@@ -18,6 +18,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory: formatValidationException,
+      transform: true,
     }),
   );
   app.useGlobalFilters(new AllExceptionFilter());
