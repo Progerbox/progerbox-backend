@@ -6,7 +6,7 @@
 2. Create `.env` file in project root with variables from `.env.example`
 3. Run the project:
 ```bash
-# For develop purposes
+# For development purposes
 
 npm run start:dev # run with watcher
 npm run start:debug # run with watcher and debugger
